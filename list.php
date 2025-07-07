@@ -35,7 +35,11 @@ $lines = file('data.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
       flex-direction: column;
       align-items: center;
     }
-
+    body, html {
+    overflow: hidden;
+    height: 100%;
+    touch-action: none; /* prevents scrolling on mobile */
+    }
     h2 {
       font-weight: 1000;
       margin-bottom: 20px;
