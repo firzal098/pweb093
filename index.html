@@ -4,8 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .button {
+            user-select: none;
+            margin-inline:10px;
+            cursor: pointer;
+            transition: scale 0.3s ease;
+        }
+        .button:active {
+            transform: scale(0.92);
+            transition: scale 0.3s ease;
+        }
+        body {
+            overflow: hidden;
+        }
+
+        .main {
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%) scale(3);
+            z-index: 1;
+        }
+
+        .label {
+            font-family: "Inter", monospace;
+            font-optical-sizing: auto;
+            font-style: normal;
+            text-align: left;
+            font-weight: 1000;
+            width: 7ch; /* enough for MM:SS:MS */
+
+            
+        }
+
+        #notice {
+            font-family: "News Cycle", monospace;
+            transition: opacity 0.2s ease;
+            opacity: 0%;
+        }
+
+        .buttonList {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        #circle {
+            user-select: none;
+            position: absolute;       
+            color: rgb(75, 171, 255);
+                 
+            left: 50%;
+            top: 64%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 0;
+
+            transition: transform 0.5s ease;
+        }
+
+        #timerContainer {
+            display: flex;
+            justify-content: center; /* center horizontally */
+            align-items: center;     /* center vertically if needed */
+        }
+
+        .black {
+            transition: color 0.3s ease;
+        }
+    </style>
+
 </head>
 <body>
-    <p>Hello Another World!</p>
+    <div class="main">
+        
+        <div id="timerContainer">
+            <h2 class="label black" id="timer">00:00:00</h2>
+        </div>
+        <div class="startIndicator"></div>
+        <div class="buttonList">
+            <i class="material-icons button black" id="play">play_circle</i>
+            <i class="material-icons button black" id="stop">stop_circle</i>
+            <i class="material-icons button black" id="menu">menu</i>
+        </div>
+        <h6 id="notice" class="black">Waktu 00:00:00 telah disimpan</h6>
+    </div>
+    
+    <i class="material-icons" id="circle">circle</i>
+
 </body>
 </html>
