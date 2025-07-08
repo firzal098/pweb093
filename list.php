@@ -3,8 +3,7 @@ function formatTime($ms) {
     $ms = (int)$ms;
     $minutes = floor($ms / 60000);
     $seconds = floor(($ms % 60000) / 1000);
-    $msec = floor(($ms % 1000) / 10); // 2-digit milliseconds
-
+    $msec = floor(($ms % 1000) / 10);
     return sprintf('%02d:%02d:%02d', $minutes, $seconds, $msec);
 }
 
@@ -13,15 +12,12 @@ $lines = file('data.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timer Results</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timer Log</title>
 
-  <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -47,14 +43,22 @@ $lines = file('data.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
       width: 200px;
     }
 
-    li {
-      font-weight: 600;
-      font-size: 18px;
-      padding: 8px;
-      text-align: center;
-      /* color: rgb(75, 171, 255); */
-      border-bottom: 1px solid #ddd;
-    }
+  li {
+    font-weight: 600;
+    font-size: 18px;
+    padding: 8px;
+    text-align: center;
+    color: black; /* changed from blue */
+    background-color: rgba(75, 171, 255, 0.15); /* soft blue background */
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease;
+  }
+
+  li:hover {
+    background-color: rgba(75, 171, 255, 0.25);
+  }
+
 
     li:last-child {
       border-bottom: none;
@@ -63,6 +67,7 @@ $lines = file('data.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     .button {
       user-select: none;
       margin-top: 30px;
+      margin-inline: 10px;
       cursor: pointer;
       transition: scale 0.3s ease;
       font-size: 32px;
@@ -71,13 +76,22 @@ $lines = file('data.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     .button:active {
       transform: scale(0.92);
-      transition: scale 0.3s ease;
+    }
+
+    .danger {
+      color: crimson;
+    }
+
+    .buttonRow {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
   </style>
 </head>
 <body>
 
-  <h2 class="black">⏱️ Saved Times</h2>
+  <h2 class="black">⏱️ Timer Logs</h2>
 
   <ul>
     <?php foreach ($lines as $ms): ?>
@@ -85,7 +99,20 @@ $lines = file('data.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     <?php endforeach; ?>
   </ul>
 
-  <i class="material-icons button" onclick="window.location.href='index.html'">arrow_back</i>
+  <div class="buttonRow">
+    <i class="material-icons button" onclick="window.location.href='index.html'">arrow_back</i>
+    <i class="material-icons button danger" onclick="clearLogs()">delete_forever</i>
+  </div>
+
+  <form id="clearForm" method="POST" action="clear.php" style="display:none;"></form>
+
+  <script>
+    function clearLogs() {
+      if (confirm("Apa anda yakin untuk menghapus semua log?")) {
+        document.getElementById("clearForm").submit();
+      }
+    }
+  </script>
 
 </body>
 </html>
